@@ -7,6 +7,10 @@ module ProgramMemory(
 );
 reg [15:0] progMem[255:0];
 
+initial begin
+    $readmemh("/Users/sid/Code/Verilog/Pipeline-1/program.txt",progMem);
+end
+
 assign {opcode, operand} = progMem[address];
 
 endmodule // ProgramMemory
