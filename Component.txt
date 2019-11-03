@@ -2,5 +2,6 @@
 1. Prog Mem - Yes
 2. Data Mem - Yes
 3. PC - Yes
-3. Stack Ptr - Onprocess
-4. Reg Array - Onprocess
+4. ALU -Yes
+5. Stack Ptr - Onprocess
+6. Reg Array - Onprocess
