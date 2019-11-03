@@ -1,0 +1,5 @@
+   Designed  -----------> Tested 
+1. Prog Mem - Yes
+2. Data Mem - Yes
+3. Stack Ptr - Onprocess
+4. Reg Array - Onprocess
