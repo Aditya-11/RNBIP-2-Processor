@@ -1,7 +1,6 @@
 //testbench for stack 
 
 `timescale 1ns/10ps
-
 module stack_tb;
 
     reg [3:0] dataInput;

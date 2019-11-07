@@ -1,5 +1,4 @@
 // Made by Aditya Dubey 
-
 `timescale 1ns/10ps
 
 module register_tb;
@@ -92,7 +91,6 @@ enab <= 2'b11;
 seg <= 3'b111;
 
 end
-
 endmodule
 
 
