@@ -1,25 +1,29 @@
 // Designed by Aditya Dubey
 // module stack -> last in first out
 
+
+// Stack starts for FF and goes till AF
+// push -> stack ptr decreses by 1
+// pop -> stack ptr increases by 1
+// Stack depth is kept upto 80;
+
+
 module stack 
 (
-    input wire [3:0] dataInput,
-    input wire clk ,
-    input wire rst ,
-    input wire en ,
+    //input wire [3:0] dataInput,
+    input wire clk,
+    input wire rst,
+    input wire en,
     input wire rw,
-    // rw == 0 // push
-    // rw == 1 // pop
-    output reg [3:0] POP,
-    output reg [3:0] PUSH,
-    output reg [3:0] dataOutput
+    output reg [7:0] address
 );
 
-    reg [3:0] stackmem [3:0];
-    reg [3:0] stackptr; 
+    //reg [3:0] stackmem [3:0];
+    reg [7:0] stackptr = 8'hff; 
+    
     integer i;
 
-    always @ (posedge clk, dataInput ,rst , en ,rw)
+    always @ (*)
     begin 
 
     if (en == 0) ;
@@ -28,39 +32,30 @@ module stack
 
     if (rst == 1) 
     begin
-    stackptr = 4'd4;
-    PUSH = 4'h0;
-    POP = 4'h0;
-    dataOutput = 4'h0; 
+    stackptr = 8'hff;
+    address = stackptr; 
     end
 
     else if (rst == 0) begin 
 
-    if (stackptr!=0 && rw == 1'b0)
-    begin // push
-    dataOutput = 4'd0;
+// push
+    if (stackptr!= 8'haf && rw == 1'b0)
+    begin 
+    address = stackptr;
     stackptr = stackptr - 1;
-    stackmem[stackptr] = dataInput;
-    POP = 0;
-    PUSH = stackmem[stackptr];
-    //$display("PUSH -> %d ",PUSH); 
     end
 
 //pop
-    else if (rw==1'b1 && stackptr!=4'd4) 
+    else if (rw==1'b1 && stackptr!=8'hff) 
     begin 
-    //assign dataInput = 4'h0;
-    dataOutput = stackmem[stackptr];
-    PUSH = 0;
-    POP = stackmem[stackptr];
-    stackmem[stackptr] = 0;
     stackptr = stackptr + 1;
-    //$display("POP -> %d ",POP); 
+    address = stackptr;
     end
 
     end
 
     end
+    
     end
 
 endmodule 
