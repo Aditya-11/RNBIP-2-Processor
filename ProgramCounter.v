@@ -19,13 +19,13 @@ begin
 end
 
 // ---- MUX 1 ----
-parameter [1:0] PC_R0 = 2'b00;
-parameter [1:0] PC_DM = 2'b01;
-parameter [1:0] PC_OR2 = 2'b10;
+parameter [1:0] PC_OD = 2'b01;
+parameter [1:0] PC_DM = 2'b10;
+parameter [1:0] PC_R0 = 2'b11;
 
-assign PC_in =	({S11,S10}==PC_R0)	?	R0_in	: (
+assign PC_in =	({S11,S10}==PC_OD)	?	OR2_in	: (
 				({S11,S10}==PC_DM)	?	DM_in	: (
-				({S11,S10}==PC_OR2)	?	OR2_in	: 8'hzz ));
+				({S11,S10}==PC_R0)	?	R0_in	: PC_reg ));
 // end MUX1
 
 assign PC_out = PC_reg;
