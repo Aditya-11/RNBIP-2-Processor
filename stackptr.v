@@ -12,15 +12,17 @@ module stack
 (
     //input wire [3:0] dataInput,
     input wire clk,
-    input wire rst,
+    // input wire rst,
     input wire en,
     input wire rw,
     output reg [7:0] address
 );
 
     //reg [3:0] stackmem [3:0];
+    //initial begin 
     reg [7:0] stackptr = 8'hff; 
-    
+    //end
+
     integer i;
 
     always @ (*)
@@ -30,13 +32,14 @@ module stack
 
     else begin 
 
+    /*
     if (rst == 1) 
     begin
     stackptr = 8'hff;
     address = stackptr; 
-    end
+    end*/
 
-    else if (rst == 0) begin 
+    //else begin 
 
 // push
     if (stackptr!= 8'haf && rw == 1'b0)
@@ -52,7 +55,7 @@ module stack
     address = stackptr;
     end
 
-    end
+    //end
 
     end
     
