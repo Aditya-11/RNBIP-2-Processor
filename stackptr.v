@@ -18,11 +18,11 @@ module stack
 
     assign address = stackptr;
 
-    always @ (posedge clk )
+    always @ (posedge clk , rw)
     begin 
 // disable stack
 
-    if (rw == 2'b00) ;
+    if (rw == 2'b00) stackptr <= stackptr;
 
 // push
     else if (stackptr!= 8'haf && rw == 2'b01)
