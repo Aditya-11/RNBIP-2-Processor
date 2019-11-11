@@ -15,13 +15,13 @@ stack st1
     .address (address)
 );
 
-localparam period = 200;
+localparam period = 100;
 
 always 
 begin
 #100
 clk = 1'b1;
-#100 
+#100
 clk = 1'b0;
 end
 
