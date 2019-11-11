@@ -3,7 +3,7 @@ module register1
     input clk,
     input [7:0] OR2,
     input [7:0] ALU_IN,
-    input [2:0] mux_sel,
+    input [1:0] mux_sel,
     input [2:0] reg_sel,
     input [1:0] enab,
     input [2:0] seg ,
@@ -38,23 +38,23 @@ end
 else if (enab == 2'b01)
 begin
 
-if (mux_sel == 3'b000) // R0
+if (mux_sel == 2'b00) // R0
 begin
 regmemory[seg] = regmemory[3'b000];
 end
 
-else if (mux_sel == 3'b001) // RN 
+else if (mux_sel == 2'b01) // RN 
 
 begin 
 regmemory[seg] = regmemory[reg_sel];
 end
 
-else if (mux_sel == 3'b010) //OR2
+else if (mux_sel == 2'b10) //OR2
 begin
 regmemory[seg] = OR2;
 end
 
-else if (mux_sel == 3'b011) // ALU_OUT
+else if (mux_sel == 2'b11) // ALU_OUT
 begin
 regmemory[seg] = ALU_IN;
 end
