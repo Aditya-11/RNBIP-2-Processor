@@ -6,7 +6,7 @@ module DataMemory(
     input   [7:0]   NPC_in,
     input   [7:0]   RN_in,
     output  [7:0]   dataOut,
-    input           RD,
+    // input           RD,
     input           WR,
     input           S2,
     input           S5,

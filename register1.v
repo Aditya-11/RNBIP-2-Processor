@@ -4,13 +4,12 @@ module register1
     input [7:0] OR2,
     input [7:0] ALU_IN,
     input [1:0] mux_sel,
-    input [2:0] reg_sel,
+    //input [2:0] reg_sel,
     input [1:0] enab,
     input [2:0] seg ,
     output [7:0] dataout_A,
     output [7:0] dataout_B
-); 
-
+);
 reg [2:0] regmemory [7:0] ;
 
 reg [7:0] dataout_A1 ;
@@ -38,15 +37,15 @@ end
 else if (enab == 2'b01)
 begin
 
-if (mux_sel == 2'b00) // R0
+if (mux_sel == 2'b00) // RN <- R0
 begin
 regmemory[seg] = regmemory[3'b000];
 end
 
-else if (mux_sel == 2'b01) // RN 
+else if (mux_sel == 2'b01) // R0 <- RN 
 
 begin 
-regmemory[seg] = regmemory[reg_sel];
+regmemory[3'b000] = regmemory[seg];
 end
 
 else if (mux_sel == 2'b10) //OR2
