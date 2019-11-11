@@ -6,7 +6,7 @@ module register_tb;
 reg clk;
 reg [7:0] OR2 ;
 reg [7:0] ALU_IN ;
-reg [2:0] mux_sel;
+reg [1:0] mux_sel;
 reg [2:0] reg_sel;
 reg [1:0] enab;
 reg [2:0] seg;
@@ -53,7 +53,7 @@ seg <= 3'b111;
 #period // OR write
 OR2 = 8'b101;
 enab <= 2'b01;
-mux_sel <= 3'b010;
+mux_sel <= 2'b10;
 seg <= 3'b010;
 
 #period // read
@@ -62,7 +62,7 @@ seg <= 3'b010;
 
 #period // write 
 enab <= 2'b01;
-mux_sel <= 3'b001;
+mux_sel <= 2'b01;
 reg_sel <= 3'b010;
 seg <= 3'b000;
 
@@ -72,7 +72,7 @@ seg <= 3'b010;
 
 #period // write
 enab <= 2'b01;
-mux_sel <= 3'b001;
+mux_sel <= 2'b01;
 reg_sel <= 3'b010;
 seg <= 3'b111;
 
@@ -83,7 +83,7 @@ seg <= 3'b010;
 #period // ALU_IN
 ALU_IN = 8'b111;
 enab  <= 2'b01;
-mux_sel <= 3'b011;
+mux_sel <= 2'b11;
 seg <= 3'b000;
 
 #period 
