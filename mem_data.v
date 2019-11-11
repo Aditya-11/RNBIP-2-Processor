@@ -23,9 +23,8 @@ module DataMemory(
 
     always @(posedge clk)
     begin
-        if (WR)
-        begin
-            dataMem[address] <= dataIn;
+    if (WR)
+        dataMem[address] <= dataIn;
     end
 
 endmodule // DataMemory
