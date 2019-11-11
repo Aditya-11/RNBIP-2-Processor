@@ -4,14 +4,16 @@ module ALUbasic(
 	output      [7:0]   Out,           // Output 8 bit
 	output      [3:0]   flagArray,     // not holding only driving EDI
 	input 			    Cin,          // Carry input bit
-	input 		[7:0] 	A_IN,
+	input 		[7:0] 	A_IN_0,
 	input       [7:0]   B_IN_0,     // 8-bit data input
     input       [7:0]   OR2,   
 	input 		[3:0] 	S_AF,      // Most significant 4 bits of the op code
-    input               sel_b
+    input               sel_b,
+    input               sel_a
 	);
 
     wire [7:0] B_IN ;
+    wire [7:0] A_IN ;
 
 	//legacy def
 	//Unary Operations
@@ -42,6 +44,7 @@ module ALUbasic(
     wire Positive;
 
     assign B_IN = (sel_b == 1'b0) ? B_IN_0 : OR2 ; 
+    assign A_IN = (sel_a == 1'b0) ? A_IN_0 : B_IN_0;
 
     assign {Cout,Out} = (S_AF== ZERO )?        9'h00         : (
                         (S_AF== A )?           A_IN          : (

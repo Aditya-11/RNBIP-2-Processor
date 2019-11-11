@@ -3,7 +3,6 @@
 
 module register_tb;
 // inputs 
-
 reg clk;
 reg [7:0] OR2 ;
 reg [7:0] ALU_IN ;
@@ -13,6 +12,7 @@ reg [1:0] enab;
 reg [2:0] seg;
 wire [7:0] dataout_A;
 wire [7:0] dataout_B;
+
 
 register1 reg1
 (
@@ -27,7 +27,7 @@ register1 reg1
     .dataout_B (dataout_B)
 ); 
 
-localparam period = 20;
+localparam period = 10;
 
 always begin 
 # 5
