@@ -1,98 +1,100 @@
 //testbench for stack 
-// rst removed
 `timescale 1ns/10ps
-module stack_tb;
 
+module stack_tb;
     reg clk;
-//    reg rst;
-    reg en;
-    reg rw;
+    reg [7:0] r0;
+    reg  [1:0] rw;
     wire [7:0] address;
 
-stack st1(
+stack st1
+(
     .clk (clk),
-//    .rst (rst),
-    .en (en),
+    .r0 (r0),
     .rw (rw),
     .address (address)
 );
 
-localparam period = 5;
+localparam period = 200;
 
 always 
 begin
-#5
+#100
 clk = 1'b1;
-#5 
+#100 
 clk = 1'b0;
 end
-
-//rw = 0 push
-//rw = 1  pop
 
 initial begin
 $dumpfile("stack1.vcd");
 $dumpvars(1,stack_tb);
-$monitor("address -> %h , en -> %b, rw -> %b",address,en,rw);
+$monitor("address -> %h , rw -> %b , r0 -> %h",address,rw,r0);
 
-//#period
+#period 
+rw <= 2'b00;
+
+#period 
+rw <= 2'b00;
+
+#period 
+rw <= 2'b01; 
+
+#period
+rw <= 2'b00;
+
+#period 
+rw <= 2'b01;
+
+#period
 //en <= 0;
-//rst <= 0;
-
-//#period 
-//rst <= 0;
+rw <= 2'b00;
 
 #period 
-rw <= 0;
-
-#period
-en <= 0;
-
-#period 
-en <= 1;
-rw <= 0;
-
-#period
-en <= 0;
-
-#period 
-en <= 1;
-rw <= 1;
-
-#period
-en <= 0;
-
-#period 
-en <= 1;
-rw <= 0;
-
-#period
-en <= 0;
-
-#period 
-en <= 1;
-rw <= 0;
-
-#period 
-en <= 0;
-
-#period 
-en <= 1;
-rw <= 0;
-
-#period
-en <= 0;
-
-//#period 
 //en <= 1;
-//rst <= 1;
+rw <= 2'b10;
 
- //#period
- //en <= 0;
+#period
+//en <= 0;
+rw <= 2'b00;
+
+#period 
+//en <= 1;
+r0 <= 8'hfa;
+rw <= 2'b00;
+
+#period
+//en <= 0;
+rw <= 2'b11;
+
+#period 
+// en <= 1;
+rw <= 2'b10;
+
+#period 
+//en <= 0;
+r0 <= 8'hef;
+rw <= 2'b00;
+
+#period 
+//en <= 1;
+rw <= 2'b11;
+
+#period
+//en <= 0;
+rw <= 2'b01;
+
+#period 
+rw <= 2'b10;
+
+#period
+//en <= 0;
+rw <= 2'b10;
+
+#period 
+rw <= 2'b00;
 
 end
 endmodule
-
 
 
 

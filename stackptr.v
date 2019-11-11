@@ -7,58 +7,38 @@
 // pop -> stack ptr increases by 1
 // Stack depth is kept upto 80;
 
-
 module stack 
 (
-    //input wire [3:0] dataInput,
-    input wire clk,
-    // input wire rst,
-    input wire en,
-    input wire rw,
-    output reg [7:0] address
+    input wire clk,    
+    input wire [7:0] r0,
+    input wire [1:0] rw,
+    output wire [7:0] address
 );
-
-    //reg [3:0] stackmem [3:0];
-    //initial begin 
     reg [7:0] stackptr = 8'hff; 
-    //end
 
-    integer i;
+    assign address = stackptr;
 
-    always @ (*)
+    always @ (posedge clk )
     begin 
+// disable stack
 
-    if (en == 0) ;
-
-    else begin 
-
-    /*
-    if (rst == 1) 
-    begin
-    stackptr = 8'hff;
-    address = stackptr; 
-    end*/
-
-    //else begin 
+    if (rw == 2'b00) ;
 
 // push
-    if (stackptr!= 8'haf && rw == 1'b0)
+    else if (stackptr!= 8'haf && rw == 2'b01)
     begin 
-    address = stackptr;
-    stackptr = stackptr - 1;
+    stackptr <= stackptr - 1;
     end
-
 //pop
-    else if (rw==1'b1 && stackptr!=8'hff) 
+    else if (rw==2'b10 && stackptr!=8'hff) 
     begin 
-    stackptr = stackptr + 1;
-    address = stackptr;
+    stackptr <= stackptr + 1;
     end
-
-    //end
-
+// take r0 value
+    else if (rw == 2'b11)
+    begin
+    stackptr <= r0;
     end
-    
     end
 
 endmodule 
