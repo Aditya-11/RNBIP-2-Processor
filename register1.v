@@ -11,7 +11,7 @@ module register1
     output [7:0] dataout_B
 ); 
 
-reg [2:0] regmemory [7:0] ;
+reg [7:0] regmemory [7:0] ;
 
 reg [7:0] dataout_A1 ;
 reg [7:0] dataout_B1 ;
