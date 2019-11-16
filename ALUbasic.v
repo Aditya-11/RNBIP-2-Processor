@@ -71,7 +71,3 @@ module ALUbasic(
 endmodule
 
 
-
-
-
-
