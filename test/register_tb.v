@@ -109,7 +109,16 @@ seg <= 3'b001;
 #period // read
 enab <= 2'b11;
 seg <= 3'b001;
+OR2 <= 8'hff;
 
+#period
+enab <= 2'b01;
+mux_sel <= 2'b10;
+seg <= 3'b000;
+
+#period // read
+enab <= 2'b11;
+seg <= 3'b011;
 
 end
 endmodule
