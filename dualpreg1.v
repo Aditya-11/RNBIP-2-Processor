@@ -6,8 +6,12 @@ module dualpreg1
   input clr,  
   input clk,
   input [7:0] OR2,
+  input [7:0] A_in ,
+  input [7:0] B_in ,
   input [7:0] ALU_IN,
-  input [1:0] mux_sel,
+  input [7:0] SP,
+  input [7:0] mem,
+  input [2:0] mux_sel,
   input [2:0] read_seg ,
   input [2:0] write_seg,
   output reg [7:0] dataout_A,
@@ -35,26 +39,41 @@ end
 // write into register
 else if (we) begin
 
-    if (mux_sel == 2'b00) // RN <- R0
+    if (mux_sel == 3'b000) // RN <- A
     begin
-    regmemory[write_seg] = regmemory[3'b000];
+    regmemory[write_seg] = A_in;
     end
 
-    else if (mux_sel == 2'b01) // R0 <- RN 
+    else if (mux_sel == 3'b001) // RN <- B
     begin 
-    regmemory[3'b000] = regmemory[write_seg];
+    regmemory[write_seg] = B_in;
     end
 
-    else if (mux_sel == 2'b10) //OR2
+    else if (mux_sel == 3'b010) //OR2
     begin
     regmemory[write_seg] = OR2;
     end
 
-    else if (mux_sel == 2'b11) // ALU_OUT
+    else if (mux_sel == 3'b011) // ALU_OUT
     begin
     regmemory[write_seg] = ALU_IN;
     end
 
+    else if (mux_sel == 3'b100) // [R0] <- [SP]
+    begin 
+    regmemory [3'b000] = SP ;
+    end
+
+    else if (mux_sel == 3'b101) // R0 <= B 
+    begin
+    regmemory[3'b000] = B_in;
+    end
+
+    else if (mux_sel == 3'b110) // RN <- mem
+    begin
+    regmemory[write_seg] = mem;
+    end
+    
  end
 end
 

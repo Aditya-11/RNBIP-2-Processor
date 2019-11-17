@@ -5,6 +5,8 @@ module dualpreg1tb ;
   reg clr;
   reg clk;
   reg [7:0] OR2;
+  reg [7:0] A_in;
+  reg [7:0] B_in;
   reg [7:0] ALU_IN;
   reg [1:0] mux_sel;
   reg [2:0] read_seg;
@@ -18,6 +20,8 @@ dualpreg1 dual11
   .clr (clr),  
   .clk (clk),
   .OR2 (OR2),
+  .A_in (A_in),
+  .B_in (B_in),
   .ALU_IN (ALU_IN),
   .mux_sel (mux_sel),
   .read_seg (read_seg),
@@ -56,6 +60,7 @@ OR2 <= 8'hfe;
 we <= 1;
 mux_sel <= 2'b10;
 write_seg <= 3'b000;
+A_in <= 8'hcf;
 
 #period
 we <= 1;
@@ -67,18 +72,19 @@ OR2 <= 8'hab;
 #period
 we <= 1;
 read_seg <= 3'b001;
-mux_sel <= 2'b00;
+mux_sel <= 2'b10;
 write_seg <= 3'b001;
+B_in <= 8'hcc;
 
 #period
 we <= 1;
-mux_sel <= 2'b10;
+mux_sel <= 2'b01;
 write_seg <= 3'b010;
 read_seg <=3'b010;
 
 #period
 we <= 1;
-mux_sel <= 2'b10;
+mux_sel <= 2'b1;
 write_seg <= 3'b010;
 read_seg <=3'b010;
 

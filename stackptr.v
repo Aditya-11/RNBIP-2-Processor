@@ -1,12 +1,9 @@
-// Designed by Aditya Dubey
 // module stack -> last in first out
-
 
 // Stack starts for FF and goes till AF
 // push -> stack ptr decreses by 1
 // pop -> stack ptr increases by 1
 // Stack depth is kept upto 80;
-
 module stack 
 (
     input wire clk,    
@@ -18,10 +15,10 @@ module stack
 
     assign address = stackptr;
 
-    always @ (posedge clk , rw)
+    always @ (posedge clk)
     begin 
 // disable stack
-
+/*
     if (rw == 2'b00) stackptr <= stackptr;
 
 // push
@@ -39,8 +36,15 @@ module stack
     begin
     stackptr <= r0;
     end
-    end
+    */
 
+    case (rw)
+    2'b00 :stackptr <= stackptr;
+    2'b01 :stackptr <= stackptr - 1;
+    2'b10 :stackptr <= stackptr + 1;
+    2'b11 :stackptr <= r0;
+    endcase
+    end
 endmodule 
 
 

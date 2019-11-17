@@ -15,13 +15,13 @@ stack st1
     .address (address)
 );
 
-localparam period = 100;
+localparam period = 10;
 
 always 
 begin
-#100
+#5
 clk = 1'b1;
-#100
+#5
 clk = 1'b0;
 end
 
@@ -46,19 +46,15 @@ rw <= 2'b00;
 rw <= 2'b01;
 
 #period
-//en <= 0;
 rw <= 2'b00;
 
 #period 
-//en <= 1;
 rw <= 2'b10;
 
 #period
-//en <= 0;
 rw <= 2'b00;
 
 #period 
-//en <= 1;
 r0 <= 8'hfa;
 rw <= 2'b00;
 
@@ -67,27 +63,25 @@ rw <= 2'b00;
 rw <= 2'b11;
 
 #period 
-// en <= 1;
 rw <= 2'b10;
 
 #period 
-//en <= 0;
 r0 <= 8'hef;
 rw <= 2'b00;
 
 #period 
-//en <= 1;
 rw <= 2'b11;
 
 #period
-//en <= 0;
 rw <= 2'b01;
 
 #period 
 rw <= 2'b10;
 
+#period 
+rw <= 2'b00;
+
 #period
-//en <= 0;
 rw <= 2'b10;
 
 #period 
