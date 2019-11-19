@@ -1,98 +1,227 @@
+// 3 stage pipelined processor implementation
+// top module
 `timescale 1ns / 1ps
 
-module Topmodule(
-    input   clk,
-    output  [15:0] led
-	);
+module Topmodule
+   (
+   input   clk,
+   output  [15:0] led
+   );
 
-// wires for control signel 
-
-// stackptr
-wire [1:0] rw;
-// PC
-wire  L_PC , I_PC ;
-wire  S11 , S10;
-// Reg 
-wire [1:0] enab;
-wire [1:0] mux_sel;
-// IR
-wire L_IR;
-//FlagReg
-wire S_AL;
-// ALU
-wire [3:0] 	S_AF;    // Most significant 4 bits of the op code
-wire sel_b;
-wire sel_a;
-
+// wires for control signel and i/os 
 //pipe Control 
-
-// mem_data
-wire    RD;
-wire    WR;
-wire    S5;
-wire    S2;
-// end of wires for control signal 
-
 // i/os 
+// Control Unit
+
+    //CC1
+    wire  [15:0] segment;
+    wire           FL;
+    wire  [7:0]    opcode_in_1;
+    wire           flagCheck_1;
+    wire  [7:0]    OR1;
+
+    // ------------------------------
+    // CC2 
+    wire [2:0] read_address;
+    wire [2:0] write_address;
+    wire [7:0] opcode;
+    wire flagCheck;
+    wire [2:0] OR2;
+    // ------------------------------ //
+
+    //CC3
+    wire RD,  WR;            //Data Memory
+    wire I_PC , L_PC;              //PC
+
+    wire S11, S10;           //MUX1 - PC
+    wire S20;                 //MUX2 - DM (address selector)
+    wire S60;                 //MUX6 - SP (output)
+    wire S30, S40;            //MUX3, MUX4 - ALU inputs A, B
+    wire S50;                 //MUX5 - DM (input for write)
+
+    wire [1:0] rw; // SP 00-> none , 01 -> push ,10 -> pop , 11 -> r0
+    wire [1:0] mux_sel; // Reg control
+    wire clr , we;   // Reg  control
+
+    // --------------------------------- //
 
 // ALU 
 	wire [7:0]   Out;           // Output 8 bit
 	wire [3:0]   flagArray;     // not holding only driving EDI
 	wire Cin;          // Carry input bit
-	wire [7:0] 	A_IN_0;
-	wire [7:0]  B_IN_0;     // 8-bit data input
-    wire [7:0]  OR2;   
 
-//  Flag Reg
-    wire [2:0]   OC_fl; //From IR
-    wire [3:0]   inArray; //From ALU
-    wire carry;  //Output to ALU
-    wire FL;      //Output to Control Code Generator
 
 // register Array 
-    wire [7:0] OR2;
-    wire [7:0] ALU_IN;
+    wire [7:0] A;
+    wire [7:0] B;
     wire [2:0] seg;
     wire [7:0] dataout_A;
     wire [7:0] dataout_B;
 
 // memeory data
-    wire    [7:0]   SP_in;
-    wire    [7:0]   R0_in;
-    wire    [7:0]   NPC;
-    wire    [7:0]   R_N; 
-    wire    [7:0]   dataOut;
+    wire  [7:0]   dataOut ;
 
 // stack ptr
-    input wire [7:0] r0,
-    input wire [1:0] rw,
-    output wire [7:0] address
+  //  wire [1:0] rw ;
+    wire [7:0] address;
 
-// IR 
-    wire     [7:0] PM_in,
-    wire     [7:0] OC_ou
 
 // PC
-    wire	[7:0]	OR2_in,
-	wire	[7:0]	R0_in,
-	wire	[7:0]	DM_in,
-    wire	[7:0]   PC_out
+    wire	[7:0]   PC_out;
 
-// end of i/os
+// Flag Register
+    wire  [2:0]   OC_fl;
+    wire     carry ;
+ //   wire     FL    ;
+
+// end of wires for i/os and control signal
+
+    assign I_PC = 1'b1 ;
+    assign led = Out ;
+    assign A = dataout_A ;
+    assign B = dataout_B ;
+
+// modules 
+
+// PC
+ProgramCounter mod0
+(
+    .CLK (clk),
+	.I_PC (I_PC), 
+    .L_PC  (L_PC),
+	.S11 (S11),
+    .S10 (S10),
+    .OR2_in (OR2),
+	.R0_in (A),
+	.DM_in (dataOut),
+    .PC_out (PC)
+);
+
+//control units
+    CCG1    mod1
+    (
+    .clk        (clk),
+    .segment (segment),
+    .FL          (FL),
+    .PC_in        (PC),
+    .opcode_in_1 (opcode_in_1),
+    .flagCheck_1 (flagCheck_1),
+    .OR1        (OR1),
+    .NPC_in_1   (NPC_in_1) 
+    );
+
+    CCG2     mod2 
+    (
+    .clk   (clk),
+    .opcode_in_1 (opcode_in_1),
+    .flagCheck_1 (flagCheck_1),
+    .OR1 (OR1),
+    .NPC_in_1 (NPC_in_1),
+    .read_address (read_address),
+    .opcode (opcode),
+    .flagCheck (flagCheck),
+    .NPC_in (NPC_in), 
+    .write_address (write_address),
+    .OR2 (OR2)
+    );
+
+    CCG3     mod3 
+    (
+    .clk (clk),   
+    .opcode (opcode),
+    .flagCheck (flagCheck),
+    .write_address (write_address),
+    .NPC_in (NPC_in),
+    .OR2 (OR2),
+    .RD(RD),  
+    .WR (WR),             
+    .L_PC (L_PC),                
+    .S11  (S11), 
+    .S10 (S10),            
+    .S20 (S20),                 
+    .S60 (S60),                 
+    .S30 (S30), 
+    .S40 (S40),            
+    .S50 (S50),                 
+    .rw (rw), 
+    .mux_sel (mux_sel), 
+    .clr (clr), 
+    .we (we)
+    );
+
+// Register
+
+dualpreg1 mod4
+(
+  .clk (clk),  
+  .we (we),  
+  .clr (clr),  
+  .OR2 (OR2),
+  .A_in (A),
+  .B_in (B),
+  .ALU_IN (Out),
+  .SP (address),
+  .mem (dataOut),
+  .mux_sel (mux_sel),
+  .read_seg (read_address),
+  .write_seg (write_address),
+  .dataout_A (dataout_A),
+  .dataout_B (dataout_B)
+);
+
+// memory 
+
+DataMemory mod5
+(
+    .clk (clk),
+    .SP_in (address),
+    .R0_in (A),
+    .NPC_in (NPC_in),
+    .RN_in (B),
+    .dataOut (dataOut),
+    .WR (WR),
+    .S20 (S20),
+    .S50 (S50)
+);
+
+// ALU 
+
+ALUbasic mod6
+(
+	.Out (Out),           // Output 8 bit
+	.flagArray (flagArray),     // not holding only driving EDI
+	.Cin (Cin),          // Carry input bit
+	.A_IN_0 (A),
+	.B_IN_0 (B),     // 8-bit data input
+    .OR2 (OR2),   
+	.S_AF (opcode[7:4]),    
+    .S30 (S30),
+    .S40 (S40)
+ );
+
+// stackptr 
+
+stackptr mod7
+(
+    .clk(clk),    
+    .r0 (A),
+    .rw (rw),
+    .address (address)
+);
+
+// flag register
+
+FlagRegister mod8
+(
+    .clk (clk),
+    .OC_fl (opcode_in_1[2:0]), 
+    .inArray (flagArray),
+    .carry (Cin),
+    .FL     (FL)
+);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+endmodule
 
 
 

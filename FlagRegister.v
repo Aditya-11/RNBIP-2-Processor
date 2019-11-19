@@ -4,7 +4,7 @@ module FlagRegister(
         input clk,
         input   [2:0]   OC_fl,  //From IR
         input   [3:0]   inArray,//From ALU
-        input           S_AL,   //Control bit, meaningful operation
+        //input           S_AL,   //Control bit, meaningful operation
         output          carry,  //Output to ALU
         output          FL      //Output to Control Code Generator
     );
@@ -18,7 +18,7 @@ module FlagRegister(
     
     // End Startup
     
-    always@(negedge S_AL)
+    always@(posedge clk)
        //if(S_AL) 
         begin
             flagArray[0] <= inArray[0];  //ZERO          Z

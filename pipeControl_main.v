@@ -1,34 +1,114 @@
+// control module of 3 stage pipelined processor
+
 `timescale 1ns / 1ps
 
-module CCG1(
-    input   [7:0]   opcode_in,
-    input           FL,
-    output  [7:0]   opcode_out,
-    output          flagCheck,
-    input           clk
+// ------------------------------------ //
+
+// CCG - 1
+
+module CCG1
+(
+    input             clk,
+    input   [15 : 0]  segment,
+    input             FL,
+    input   [7:0]     PC_in,
+    output  [7:0]     opcode_in_1,
+    output            flagCheck_1,
+    output  [7:0]     OR1,
+    output  [7:0]     NPC_in_1
 );
 
 reg [7:0] OC_reg;
 reg FL_reg;
+reg [7:0] OR_reg; 
+reg [7:0] NPC;
+
 initial begin
     FL_reg = 1'b0;
     OC_reg = 8'h00;
+    OR_reg = 8'h00;
+    NPC = 8'h00;
 end
 
 always @ (posedge clk)
 begin
-    OC_reg <= opcode_in;
-    FL_reg <= FL;
+    OC_reg <= segment [15:8];
+    OR_reg <= segemnt [7:0];
+    FL_reg <= FL ;
+    NPC    <=  PC_in; 
 end
 
-assign flagCheck = FL_reg;
-assign opcode_out = OC_reg;
+assign flagCheck = FL_reg ;
+assign opcode_out = OC_reg ;
+assign OR1 = OR_reg ; 
+assign NPC_in_1 = NPC;
 
-endmodule // CCG1
+endmodule 
+
+// -------------------------------------- //
+
+// CCG-2
 
 module CCG2(
+    input   clk,
+    input   [7:0]  opcode_in_1,
+    input   flagCheck_1,
+    input   [7:0]  OR1,
+    input   [7:0] NPC_in_1,
+    output  [2:0] read_address,
+    output  [7:0] opcode,
+    output  flagCheck,
+    output  [7:0] NPC_in, 
+    output  [2:0] write_address,
+    ouput   [7:0]  OR2
+    
+);
+
+reg [7:0] OC_reg;
+reg FL_reg;
+reg [7:0] OR_reg;
+reg [7:0] NPC;
+reg [2:0] write;
+
+initial begin
+    FL_reg = 1'b0;
+    OC_reg = 8'h00;
+    OR_reg = 8'h00;
+    read_address = 3'b000;
+    write_address = 3'b000;
+    NPC = 8'h00;
+end
+
+always @ (posedge clk)
+begin
+     FL_reg <=  flagCheck_1;
+     OC_reg <=  opcode_in_1;
+     OR_reg <=   OR1;
+     NPC    <= NPC_in_1;
+     write <= opcode_in_1[2:0];
+end
+
+assign opcode = OC_reg ;
+assign flagcheck = FL_reg;
+assign OR2 = OR_reg;
+assign read_address = opcode_in_1[2:0];
+assign write_address = write;
+assign NPC_in = NPC;
+
+endmodule 
+
+// --------------------------------------- //
+
+// CCG 3
+
+
+module CCG3(
+    input clk,
     input   [7:0]   opcode,
-    input           flagCheck,
+    input       flagCheck,
+    input       write_address,
+    input       NPC_in,
+    input       OR2,
     output RD,  WR,             //Data Memory
     output L_PC,                //PC
 
@@ -40,8 +120,7 @@ module CCG2(
 
     output [1:0] rw, // SP 00-> none , 01 -> push ,10 -> pop , 11 -> r0
     output [1:0] mux_sel, // Reg control
-    output clr , we  ,   // Reg  control
-    input clk
+    output clr , we    // Reg  control
 );
 
 //reg [7:0] controlBits;

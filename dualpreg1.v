@@ -2,9 +2,9 @@
 
 module dualpreg1 
 (
+  input clk,
   input  we,  
   input clr,  
-  input clk,
   input [7:0] OR2,
   input [7:0] A_in ,
   input [7:0] B_in ,

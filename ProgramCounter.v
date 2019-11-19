@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
 module ProgramCounter(
+	input			CLK,
 	input			I_PC, L_PC,
 	input			S11, S10,
-    input			CLK,
     input	[7:0]	OR2_in,
 	input	[7:0]	R0_in,
 	input	[7:0]	DM_in,
