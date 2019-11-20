@@ -32,7 +32,7 @@ module Topmodule
     //CC3
     wire RD,  WR;            //Data Memory
     wire I_PC , L_PC;              //PC
-
+    wire  S_AL;  // Flag register
     wire S11, S10;           //MUX1 - PC
     wire S20;                 //MUX2 - DM (address selector)
     wire S60;                 //MUX6 - SP (output)
@@ -135,7 +135,8 @@ ProgramCounter mod0
     .OR2 (OR2),
     .RD(RD),  
     .WR (WR),             
-    .L_PC (L_PC),                
+    .L_PC (L_PC), 
+    .S_AL (S_AL),               
     .S11  (S11), 
     .S10 (S10),            
     .S20 (S20),                 
@@ -216,6 +217,7 @@ FlagRegister mod8
     .clk (clk),
     .OC_fl (opcode_in_1[2:0]), 
     .inArray (flagArray),
+    .S_AL (S_AL),
     .carry (Cin),
     .FL     (FL)
 );
