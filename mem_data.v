@@ -1,16 +1,17 @@
 `timescale 1ns / 1ps
 
-module DataMemory(
-    input           clk
+module DataMemory
+(
+    input           clk,
+    input           WR,
+    input           S20,
+    input           S50,
     input   [7:0]   SP_in,
     input   [7:0]   R0_in,
     input   [7:0]   NPC_in,
     input   [7:0]   RN_in,
-    output  [7:0]   dataOut,
+    output  [7:0]   dataOut
     // input           RD,
-    input           WR,
-    input           S20,
-    input           S50,
 );
 
     reg [7:0] dataMem[255:0];
@@ -27,4 +28,4 @@ module DataMemory(
         dataMem[address] <= dataIn;
     end
 
-endmodule // DataMemory
+endmodule 

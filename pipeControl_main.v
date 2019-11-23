@@ -106,9 +106,9 @@ module CCG3(
     input clk,
     input   [7:0]   opcode,
     input       flagCheck,
-    input       write_address,
-    input       NPC_in,
-    input       OR2,
+    input  [2:0]     write_address,
+    input  [7:0]     NPC_in,
+    input  [7:0]     OR2,
     output RD,  WR,             //Data Memory
     output L_PC,                //PC
     output S_AL,
@@ -119,7 +119,7 @@ module CCG3(
     output S50,                 //MUX5 - DM (input for write)
 
     output [1:0] rw, // SP 00-> none , 01 -> push ,10 -> pop , 11 -> r0
-    output [1:0] mux_sel, // Reg control
+    output [2:0] mux_sel, // Reg control
     output clr , we    // Reg  control
 );
 

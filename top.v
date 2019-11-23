@@ -7,7 +7,6 @@ module Topmodule
    input   clk,
    output  [15:0] led
    );
-
 // wires for control signel and i/os 
 //pipe Control 
 // i/os 
@@ -17,16 +16,18 @@ module Topmodule
     wire  [15:0] segment;
     wire           FL;
     wire  [7:0]    opcode_in_1;
+    wire  [7:0]    NPC_in_1;
     wire           flagCheck_1;
     wire  [7:0]    OR1;
 
     // ------------------------------
     // CC2 
+    wire [7:0] NPC_in;
     wire [2:0] read_address;
     wire [2:0] write_address;
     wire [7:0] opcode;
     wire flagCheck;
-    wire [2:0] OR2;
+    wire [7:0] OR2;
     // ------------------------------ //
 
     //CC3
@@ -40,7 +41,7 @@ module Topmodule
     wire S50;                 //MUX5 - DM (input for write)
 
     wire [1:0] rw; // SP 00-> none , 01 -> push ,10 -> pop , 11 -> r0
-    wire [1:0] mux_sel; // Reg control
+    wire [2:0] mux_sel; // Reg control
     wire clr , we;   // Reg  control
 
     // --------------------------------- //
@@ -202,7 +203,7 @@ ALUbasic mod6
 
 // stackptr 
 
-stackptr mod7
+stack mod7
 (
     .clk(clk),    
     .r0 (A),
@@ -222,7 +223,7 @@ FlagRegister mod8
     .FL     (FL)
 );
 
-mem_prog mod9
+ProgramMemory mod9
 (
     .address (PC_out),
     .segment (segment)
@@ -230,82 +231,4 @@ mem_prog mod9
 
 
 endmodule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
