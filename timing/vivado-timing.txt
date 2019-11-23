@@ -1,0 +1,28 @@
+Vivado Timing Report Data
+---------------------------
+
+
+------------------------------------
+MODULE		|	Time (ns)
+------------------------------------
+		|
+ProgramCounter	|	5
+		|
+FlagRegister	|	7.2
+		|
+DataMemory	|	10.7
+		|
+ALUbasic	|	14.5
+		|
+stackptr	|	5.1
+		|
+register1	|	5.5
+		|
+dualpreg1	|
+	read	|	6.2
+	write	|	7.2
+		|
+CCG1		|	5.2
+CCG2		|	8.9
+CCG3		|	9
+------------------------------------
