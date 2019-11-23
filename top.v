@@ -94,7 +94,7 @@ ProgramCounter mod0
     .OR2_in (OR2),
 	.R0_in (A),
 	.DM_in (dataOut),
-    .PC_out (PC)
+    .PC_out (PC_out)
 );
 
 //control units
@@ -103,7 +103,7 @@ ProgramCounter mod0
     .clk        (clk),
     .segment (segment),
     .FL          (FL),
-    .PC_in        (PC),
+    .PC_in        (PC_out),
     .opcode_in_1 (opcode_in_1),
     .flagCheck_1 (flagCheck_1),
     .OR1        (OR1),
@@ -220,6 +220,12 @@ FlagRegister mod8
     .S_AL (S_AL),
     .carry (Cin),
     .FL     (FL)
+);
+
+mem_prog mod9
+(
+    .address (PC_out),
+    .segment (segment)
 );
 
 
