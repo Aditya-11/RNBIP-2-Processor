@@ -39,7 +39,8 @@ begin
 end
 
 assign flagCheck = FL_reg ;
-assign opcode_out = OC_reg ;
+//assign opcode_out = OC_reg ;
+assign opcode_in_1 = OC_reg ;
 assign OR1 = OR_reg ; 
 assign NPC_in_1 = NPC;
 
