@@ -13,7 +13,8 @@ module stack
 );
     reg [7:0] stackptr = 8'hff; 
 
-    assign address = stackptr;
+    //assign address = stackptr;
+    assign address = rw[1] ? stackptr+1 : stackptr;
 
     always @ (posedge clk)
     begin 
