@@ -16,5 +16,5 @@ RN2: top.v mem_prog.v FlagRegister.v Alubasic.v pipeControl_main.v dualpreg1.v s
 	$(CC) -o top top.v mem_prog.v FlagRegister.v Alubasic.v pipeControl_main.v dualpreg1.v stackptr.v ProgramCounter.v mem_data.v
 
 toptb:
-	$(CC) -o toptest test/top_tb.v top.v ProgramCounter.v mem_prog.v mem_data.v ALUbasic.v FlagRegister.v dualpreg1.v stackptr.v pipeControl_main.v
+	$(CC) -o toptest test/top_tb.v topmodule_test.v ProgramCounter.v mem_prog.v mem_data.v ALUbasic.v FlagRegister.v dualPReg_tmt.v stackptr.v pipeControl_main.v
 	$(RUN) toptest
