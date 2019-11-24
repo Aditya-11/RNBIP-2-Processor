@@ -38,10 +38,9 @@ begin
     NPC    <=  PC_in; 
 end
 
-assign flagCheck = FL_reg ;
-//assign opcode_out = OC_reg ;
-assign opcode_in_1 = OC_reg ;
-assign OR1 = OR_reg ; 
+assign flagCheck = FL_reg;
+assign opcode_in_1 = OC_reg;
+assign OR1 = OR_reg; 
 assign NPC_in_1 = NPC;
 
 endmodule 
@@ -135,7 +134,7 @@ assign {RD, WR, clr , we , mux_sel , rw , L_PC,S_AL} = controlBits;
 assign {S11, S10, S20, S30, S40, S50, S60, S82, S81, S80} = muxBits;
 
 initial begin
-    controlBits = 11'h00;
+    controlBits = 11'b00000000000;
     //read_seg = 3'bxxx;
     muxBits = 10'b0000000000;
 end

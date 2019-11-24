@@ -55,9 +55,9 @@ module ALUbasic(
                         (S_AF== SLC_A )?       {A_IN,Cin}    : (        //Rotate
                         (S_AF== SRC_A )?       {A_IN[0],Cin,A_IN[7:1]}    : (      //Rotate
                         (S_AF== ADD_AB )?      A_IN+B_IN     : (
-                        (S_AF== SUB_AB )?      B_IN-A_IN     : (
+                        (S_AF== SUB_AB )?      A_IN-B_IN     : (
                         (S_AF== ADD_ABC )?     A_IN+B_IN+Cin : (
-                        (S_AF== SUB_ABC )?     B_IN-A_IN-Cin : (
+                        (S_AF== SUB_ABC )?     A_IN-B_IN-Cin : (
                         (S_AF== AND_AB )?      A_IN&B_IN     : (
                         (S_AF== OR_AB )?       A_IN|B_IN     : (
                         (S_AF== XOR_AB )?      A_IN^B_IN     : (

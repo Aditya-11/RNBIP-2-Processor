@@ -13,4 +13,8 @@ Stack: stackptr.v ./test/stack_tb.v
 	$(CC) -o stack1 stackptr.v ./test/stack_tb.v
 	$(RUN) ./stack1
 RN2: top.v mem_prog.v FlagRegister.v Alubasic.v pipeControl_main.v dualpreg1.v stackptr.v ProgramCounter.v mem_data.v  stackptr.v
-	$(CC) -o top top.v mem_prog.v FlagRegister.v Alubasic.v pipeControl_main.v dualpreg1.v stackptr.v ProgramCounter.v mem_data.v 
+	$(CC) -o top top.v mem_prog.v FlagRegister.v Alubasic.v pipeControl_main.v dualpreg1.v stackptr.v ProgramCounter.v mem_data.v
+
+toptb:
+	$(CC) -o toptest test/top_tb.v top.v ProgramCounter.v mem_prog.v mem_data.v ALUbasic.v FlagRegister.v dualpreg1.v stackptr.v pipeControl_main.v
+	$(RUN) toptest
