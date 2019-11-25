@@ -2,3 +2,4 @@
 **/*.vcd
 *.out
 .DS_Store
+toptest*

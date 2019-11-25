@@ -28,4 +28,8 @@ module DataMemory
         dataMem[address] <= dataIn;
     end
 
+    initial begin
+            $readmemh("test/DMinit.txt",dataMem);
+    end
+
 endmodule 

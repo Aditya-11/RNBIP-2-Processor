@@ -8,7 +8,8 @@ module ProgramMemory(
 reg [15:0] progMem[255:0];
 
 initial begin
-    $readmemh("instruct.txt",progMem);
+    //$readmemh("instruct.txt",progMem);
+    $readmemh("test/program.txt",progMem);
 end
 
 //assign {opcode, operand} = progMem[address];
