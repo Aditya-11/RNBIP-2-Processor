@@ -53,8 +53,10 @@ module Topmodule
 
 
 // register Array 
-    wire [7:0] A;
-    wire [7:0] B;
+    //wire [7:0] A;
+    //wire [7:0] B;
+    reg [7:0] A;
+    reg [7:0] B;
     wire [2:0] seg;
     wire [7:0] dataout_A;
     wire [7:0] dataout_B;
@@ -79,8 +81,14 @@ module Topmodule
 
     assign I_PC = 1'b1 ;
     assign led = Out ;
-    assign A = dataout_A ;
-    assign B = dataout_B ;
+    //assign A = dataout_A ;
+    //assign B = dataout_B ;
+
+    always @(posedge clk)
+    begin
+     A <= dataout_A ;
+     B <= dataout_B ;
+    end
 
 // modules 
 
