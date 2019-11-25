@@ -73,7 +73,7 @@ module CCG2(
     output   [7:0]  OR2
     
 );
-
+/*
 reg [7:0] OC_reg;
 reg FL_reg;
 reg [7:0] OR_reg;
@@ -88,7 +88,8 @@ initial begin
     //write_address = 3'b000;
     NPC = 8'h00;
 end
-
+*/
+/*
 always @ (posedge clk)
 begin
      FL_reg <=  flagCheck_1;
@@ -97,13 +98,26 @@ begin
      NPC    <= NPC_in_1;
      write <= opcode_in_1[2:0];
 end
+*/
 
+/*
 assign opcode = OC_reg ;
 assign flagcheck = FL_reg;
 assign OR2 = OR_reg;
 assign read_address = opcode_in_1[2:0];
 assign write_address = write;
 assign NPC_in = NPC;
+*/
+
+assign opcode = opcode_in_1; 
+assign flagcheck = flagCheck_1;
+assign OR2 = OR1;
+assign read_address = opcode_in_1[2:0];
+assign write_address = write_address;
+assign NPC_in = NPC_in_1;
+
+
+
 
 endmodule 
 
@@ -157,27 +171,32 @@ begin
         controlBits = 11'b00_00000_00_0_0;
         muxBits = 10'b00_00000_000;
     end
+    
     8'b0000_0_001 : begin           //CLR
         //controlBits = 8'b00111000;
         controlBits = 11'b00_10000_00_0_0;
         muxBits = 10'b00_00000_001;
     end
+
     8'b0000_0_010 : begin           //CLC
         //controlBits = 8'b00001000;
         //controlBits = 9'
         controlBits = 11'b00_00000_00_0_1;
         muxBits = 10'b00_00000_000;
     end
+
     8'b0000_0_011 : begin           //JUD_od
         //controlBits = 8'b00000001;
         controlBits = 11'b00_00000_00_1_0;
         muxBits = 10'b01_00000_000;
     end
+
     8'b0000_0_100 : begin           //JUA
         //controlBits = 8'b00000001;
         controlBits = 11'b00_00000_00_1_0;
         muxBits = 10'b11_00000_000;
     end
+
     8'b0000_0_101 : begin           //CUD_od
         //controlBits = 8'b01000011;
         controlBits = 11'b01_00000_01_1_0;
