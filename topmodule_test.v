@@ -54,8 +54,8 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
 
 
 // register Array 
-    wire [7:0] A;
-    wire [7:0] B;
+    //wire [7:0] A;
+    //wire [7:0] B;
     wire [2:0] seg;
     wire [7:0] dataout_A;
     wire [7:0] dataout_B;
@@ -80,9 +80,17 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
 
     assign I_PC = 1'b1 ;
     assign led = Out ;
-    assign A = dataout_A ;
-    assign B = dataout_B ;
+    //assign A = dataout_A ;
+    //assign B = dataout_B ;
 
+    reg [7:0] A;
+    reg [7:0] B;
+
+    always @(posedge clk)
+    begin
+     A <= dataout_A ;
+     B <= dataout_B ;
+    end
 // modules 
 
 // PC
