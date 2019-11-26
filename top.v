@@ -36,7 +36,6 @@ module Topmodule
     wire  S_AL;  // Flag register
     wire S11, S10;           //MUX1 - PC
     wire S20;                 //MUX2 - DM (address selector)
-    wire S60;                 //MUX6 - SP (output)
     wire S30, S40;            //MUX3, MUX4 - ALU inputs A, B
     wire S50;                 //MUX5 - DM (input for write)
 
@@ -149,7 +148,6 @@ ProgramCounter mod0
     .S11  (S11), 
     .S10 (S10),            
     .S20 (S20),                 
-    .S60 (S60),                 
     .S30 (S30), 
     .S40 (S40),            
     .S50 (S50),                 
