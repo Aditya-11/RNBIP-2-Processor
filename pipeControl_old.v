@@ -82,29 +82,12 @@ begin
 end
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d886e42350fa6078a51a2d304c5cb95ff03164e1
 assign opcode = OC_reg ;
 assign flagcheck = FL_reg;
 assign OR2 = OR_reg;
 assign read_address = opcode_in_1[2:0];
 assign write_address = write;
 assign NPC_in = NPC;
-<<<<<<< HEAD
-=======
-
-
-// assign opcode = opcode_in_1; 
-// assign flagcheck = flagCheck_1;
-// assign OR2 = OR1;
-// assign read_address = opcode_in_1[2:0];
-// assign write_address = write_address;
-// assign NPC_in = NPC_in_1;
-
-
->>>>>>> d886e42350fa6078a51a2d304c5cb95ff03164e1
 
 
 endmodule 
