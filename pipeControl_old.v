@@ -17,41 +17,23 @@ module CCG1
     output  [7:0]     NPC_in_1
 );
 
-/*
 reg [7:0] OC_reg;
 reg FL_reg;
 reg [7:0] OR_reg; 
 reg [7:0] NPC;
-*/
 
-/*
+
 initial begin
     FL_reg = 1'b0;
     OC_reg = 8'h00;
     OR_reg = 8'h00;
     NPC = 8'h00;
-end
+end 
 
-always @ (posedge clk)
-begin
-    OR_reg <= segment[7:0];
-    OC_reg <= segment[15:8];
-    FL_reg <= FL ;
-    NPC    <=  PC_in; 
-end*/
-
-/*
-assign flagCheck = FL_reg;
-assign opcode_in_1 = OC_reg;
-assign OR1 = OR_reg; 
-assign NPC_in_1 = NPC;
-*/
-
-assign flagCheck = FL;
+assign flagCheck_1 = FL;
 assign opcode_in_1 = segment[15:8];
 assign OR1 = segment[7:0]; 
 assign NPC_in_1 = PC_in;
-
 
 endmodule 
 
@@ -73,7 +55,7 @@ module CCG2(
     output   [7:0]  OR2
     
 );
-/*
+
 reg [7:0] OC_reg;
 reg FL_reg;
 reg [7:0] OR_reg;
@@ -88,8 +70,7 @@ initial begin
     //write_address = 3'b000;
     NPC = 8'h00;
 end
-*/
-/*
+
 always @ (posedge clk)
 begin
      FL_reg <=  flagCheck_1;
@@ -98,25 +79,15 @@ begin
      NPC    <= NPC_in_1;
      write <= opcode_in_1[2:0];
 end
-*/
 
-/*
+
+
 assign opcode = OC_reg ;
 assign flagcheck = FL_reg;
 assign OR2 = OR_reg;
 assign read_address = opcode_in_1[2:0];
 assign write_address = write;
 assign NPC_in = NPC;
-*/
-
-assign opcode = opcode_in_1; 
-assign flagcheck = flagCheck_1;
-assign OR2 = OR1;
-assign read_address = opcode_in_1[2:0];
-assign write_address = write_address;
-assign NPC_in = NPC_in_1;
-
-
 
 
 endmodule 
@@ -124,7 +95,6 @@ endmodule
 // --------------------------------------- //
 
 // CCG 3
-
 
 module CCG3(
     input clk,

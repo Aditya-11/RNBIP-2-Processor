@@ -86,6 +86,7 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
     reg [7:0] A;
     reg [7:0] B;
 
+
     always @(posedge clk)
     begin
      A <= dataout_A ;
