@@ -84,11 +84,14 @@ module Topmodule
     //assign A = dataout_A ;
     //assign B = dataout_B ;
 
+    
+   
     always @(posedge clk)
     begin
      A <= dataout_A ;
      B <= dataout_B ;
     end
+
 
 // modules 
 
