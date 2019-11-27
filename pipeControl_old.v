@@ -17,20 +17,6 @@ module CCG1
     output  [7:0]     NPC_in_1
 );
 
-/*
-reg [7:0] OC_reg;
-reg FL_reg;
-reg [7:0] OR_reg; 
-reg [7:0] NPC;
-
-initial begin
-    FL_reg = 1'b0;
-    OC_reg = 8'h00;
-    OR_reg = 8'h00;
-    NPC = 8'h00;
-end 
-*/
-
 assign flagCheck_1 = FL;
 assign opcode_in_1 = segment[15:8];
 assign OR1 = segment[7:0]; 
@@ -42,7 +28,8 @@ endmodule
 
 // CCG-2
 
-module CCG2(
+module CCG2
+(
     input   clk,
     input   [7:0]  opcode_in_1,
     input   flagCheck_1,
@@ -83,7 +70,7 @@ end
 
 
 assign opcode = OC_reg ;
-assign flagcheck = FL_reg;
+assign flagCheck = FL_reg;
 assign OR2 = OR_reg;
 assign read_address = opcode_in_1[2:0];
 assign write_address = write;
