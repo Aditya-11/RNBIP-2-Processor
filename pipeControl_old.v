@@ -17,12 +17,12 @@ module CCG1
     output  [7:0]     NPC_in_1
 );
 
+/*
 reg [7:0] OC_reg;
 reg FL_reg;
 reg [7:0] OR_reg; 
 reg [7:0] NPC;
 
-/*
 initial begin
     FL_reg = 1'b0;
     OC_reg = 8'h00;
