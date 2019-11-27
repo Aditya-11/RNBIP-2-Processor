@@ -131,256 +131,256 @@ reg [9:0] muxBits;
 // reg [7:0] controlBits
 
 assign {RD, WR, clr , we , mux_sel , rw , L_PC,S_AL} = controlBits;
-assign {S11, S10, S20, S30, S40, S50, S60, S82, S81, S80} = muxBits;
+assign {S11, S10, S20, S30, S40, S50, S82, S81, S80} = muxBits;
 
 initial begin
     controlBits = 11'b00000000000;
     //read_seg = 3'bxxx;
-    muxBits = 10'b0000000000;
+    muxBits = 9'b000000000;
 end
 
 always @ (posedge clk)
 begin
     casex (opcode)
     8'b0000_0_000 : begin           //NOP
-        //controlBits = 8'b00000000;
-        controlBits = 11'b00_00000_00_0_0;
-        muxBits = 10'b00_00000_000;
+        //controlBits <= 8'b00000000;
+        controlBits <= 11'b00_00000_00_0_0;
+        muxBits <= 9'b00_0000_000;
     end
     8'b0000_0_001 : begin           //CLR
-        //controlBits = 8'b00111000;
-        controlBits = 11'b00_10000_00_0_0;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00111000;
+        controlBits <= 11'b00_10000_00_0_0;
+        muxBits <= 9'b00_0000_001;
     end
     8'b0000_0_010 : begin           //CLC
-        //controlBits = 8'b00001000;
-        //controlBits = 9'
-        controlBits = 11'b00_00000_00_0_1;
-        muxBits = 10'b00_00000_000;
+        //controlBits <= 8'b00001000;
+        //controlBits <= 9'
+        controlBits <= 11'b00_00000_00_0_1;
+        muxBits <= 9'b00_0000_000;
     end
     8'b0000_0_011 : begin           //JUD_od
-        //controlBits = 8'b00000001;
-        controlBits = 11'b00_00000_00_1_0;
-        muxBits = 10'b01_00000_000;
+        //controlBits <= 8'b00000001;
+        controlBits <= 11'b00_00000_00_1_0;
+        muxBits <= 9'b01_0000_000;
     end
     8'b0000_0_100 : begin           //JUA
-        //controlBits = 8'b00000001;
-        controlBits = 11'b00_00000_00_1_0;
-        muxBits = 10'b11_00000_000;
+        //controlBits <= 8'b00000001;
+        controlBits <= 11'b00_00000_00_1_0;
+        muxBits <= 9'b11_0000_000;
     end
     8'b0000_0_101 : begin           //CUD_od
-        //controlBits = 8'b01000011;
-        controlBits = 11'b01_00000_01_1_0;
-        muxBits = 10'b01_10000_000;
+        //controlBits <= 8'b01000011;
+        controlBits <= 11'b01_00000_01_1_0;
+        muxBits <= 9'b01_1000_000;
     end
     8'b0000_0_110 : begin           //CUA
-        //controlBits = 8'b01000011;
-        controlBits = 11'b01_00000_01_1_0;
-        muxBits = 10'b11_10000_000;
+        //controlBits <= 8'b01000011;
+        controlBits <= 11'b01_00000_01_1_0;
+        muxBits <= 9'b11_1000_000;
     end
     8'b0000_0_111 : begin           //RTU
-        //controlBits = 8'b10000101;
-        controlBits = 11'b10_00000_10_1_0;
-        muxBits = 10'b10_10001_000;
+        //controlBits <= 8'b10000101;
+        controlBits <= 11'b10_00000_10_1_0;
+        muxBits <= 9'b10_1000_000;
     end
     8'b0000_1_xxx : begin           //JCD_fl_od
         if (flagCheck) begin
-            //controlBits = 8'b00000001;
-            controlBits = 11'b00_00000_00_1_0; 
-            muxBits = 10'b01_00000_000;
+            //controlBits <= 8'b00000001;
+            controlBits <= 11'b00_00000_00_1_0; 
+            muxBits <= 9'b01_0000_000;
         end else begin
-            //controlBits = 8'b00000000;
-            controlBits = 11'b00_00000_00_0_0;
-            muxBits = 10'b00_00000_000;
+            //controlBits <= 8'b00000000;
+            controlBits <= 11'b00_00000_00_0_0;
+            muxBits <= 9'b00_0000_000;
         end
     end
     8'b0001_0_000 : begin           //LSP
-        //controlBits = 8'b00000110;
-        controlBits = 11'b00_00000_11_0_0;
-        muxBits = 10'b00_00000_000;
+        //controlBits <= 8'b00000110;
+        controlBits <= 11'b00_00000_11_0_0;
+        muxBits <= 9'b00_0000_000;
     end
     8'b0001_0_xxx : begin           //MVD_rn*
-        //controlBits = 8'b00010000;
-        controlBits = 11'b00_01000_00_0_0;
-        muxBits = 10'b00_00000_101;
+        //controlBits <= 8'b00010000;
+        controlBits <= 11'b00_01000_00_0_0;
+        muxBits <= 9'b00_0000_101;
     end
     8'b0001_1_000 : begin           //RSP
-       //controlBits = 8'b00100000;
-        controlBits = 11'b00_01100_00_0_0;
-        muxBits = 10'b00_00000_011;
+       //controlBits <= 8'b00100000;
+        controlBits <= 11'b00_01100_00_0_0;
+        muxBits <= 9'b00_0000_011;
     end
     8'b0001_1_xxx : begin           //MVS_rn*
-        //controlBits = 8'b00100000;
-        controlBits = 11'b00_01101_00_0_0;
-        muxBits = 10'b00_00000_110;
+        //controlBits <= 8'b00100000;
+        controlBits <= 11'b00_01101_00_0_0;
+        muxBits <= 9'b00_0000_110;
     end
 
 
     8'b0010_0_xxx : begin           //NOT_rn --
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01000_001;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0100_001;
     end
 
 
     8'b0010_1_xxx : begin           //JCA_fl
         if (flagCheck) begin
-            //controlBits = 8'b00000001;
-            controlBits = 11'b00_00000_00_1_0;
-            muxBits = 10'b11_00000_000;
+            //controlBits <= 8'b00000001;
+            controlBits <= 11'b00_00000_00_1_0;
+            muxBits <= 9'b11_0000_000;
         end else begin
-            controlBits = 11'b00_00000_00_0_0;
-            muxBits = 10'b00_00000_000;
+            controlBits <= 11'b00_00000_00_0_0;
+            muxBits <= 9'b00_0000_000;
         end
     end
 
     8'b0011_0_xxx : begin           //CCD_fl_od **
         if (flagCheck) begin
-            //controlBits = 8'b01000011;
-            controlBits = 11'b01_00000_01_1_0;
-            muxBits = 10'b01_10000_000;
+            //controlBits <= 8'b01000011;
+            controlBits <= 11'b01_00000_01_1_0;
+            muxBits <= 9'b01_1000_000;
         end else begin
-            controlBits = 11'b00_00000_00_0_0;
-            muxBits = 10'b00_00000_000;
+            controlBits <= 11'b00_00000_00_0_0;
+            muxBits <= 9'b00_0000_000;
         end
     end
 
     8'b0011_1_xxx : begin           //CCA_fl
         if (flagCheck) begin
-            //controlBits = 8'b01000011;
-            controlBits = 11'b01_00000_01_1_0;
-            muxBits = 10'b11_10000_000;
+            //controlBits <= 8'b01000011;
+            controlBits <= 11'b01_00000_01_1_0;
+            muxBits <= 9'b11_1000_000;
         end else begin
-            controlBits = 11'b00_00000_00_0_0;
-            muxBits = 10'b00_00000_000;
+            controlBits <= 11'b00_00000_00_0_0;
+            muxBits <= 9'b00_0000_000;
         end
     end
 
     8'b0100_0_xxx : begin           //INC_rn
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01000_001;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0100_001;
     end
     8'b0100_1_xxx : begin           //RTC_fl
         if (flagCheck) begin
-            //controlBits = 8'b10000101;
-            controlBits = 11'b10_00000_10_1_0;
-            muxBits = 10'b10_10001_000;
+            //controlBits <= 8'b10000101;
+            controlBits <= 11'b10_00000_10_1_0;
+            muxBits <= 9'b10_1000_000;
         end else begin
-            controlBits = 11'b00_00000_00_0_0;
-            muxBits = 10'b00_00000_000;
+            controlBits <= 11'b00_00000_00_0_0;
+            muxBits <= 9'b00_0000_000;
         end
     end
     8'b0101_0_xxx : begin           //DCR_rn
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_0111_00_0_1;
-        muxBits = 10'b00_01000_001;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_0111_00_0_1;
+        muxBits <= 9'b00_0100_001;
     end
     8'b0101_1_xxx : begin           //MVI_rn_od
-        //controlBits = 8'b00010000;
-        controlBits = 11'b00_01010_00_0_0;
-        muxBits = 10'b00_00000_010;
+        //controlBits <= 8'b00010000;
+        controlBits <= 11'b00_01010_00_0_0;
+        muxBits <= 9'b00_0000_010;
     end
     8'b0110_0_000 : begin           //RLA
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b0110_0_xxx : begin           //STA_rn*
-        //controlBits = 8'b01010000;
-        controlBits = 11'b01_00000_00_0_0;
-        muxBits = 10'b00_00010_000;
+        //controlBits <= 8'b01010000;
+        controlBits <= 11'b01_00000_00_0_0;
+        muxBits <= 9'b00_0001_000;
     end
     8'b0110_1_xxx : begin           //PSH_rn
-        //controlBits = 8'b01010010;
-        controlBits = 11'b01_00000_01_0_0;
-        muxBits = 10'b00_10010_000;
+        //controlBits <= 8'b01010010;
+        controlBits <= 11'b01_00000_01_0_0;
+        muxBits <= 9'b00_1001_000;
     end
     8'b0111_0_000 : begin           //RRA
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b0111_0_xxx : begin           //LDA_rn*
-        //controlBits = 8'b10010000;
-        //controlBits = 9'b10010000;
-        controlBits = 11'b10_01110_00_0_0;
-        muxBits = 10'b00_00000_100;
+        //controlBits <= 8'b10010000;
+        //controlBits <= 9'b10010000;
+        controlBits <= 11'b10_01110_00_0_0;
+        muxBits <= 9'b00_0000_100;
     end
     8'b0111_1_xxx : begin           //POP_rn
-        //controlBits = 8'b10010100;
-        controlBits = 11'b10_01110_10_0_0;
-        muxBits = 10'b00_10001_100;
+        //controlBits <= 8'b10010100;
+        controlBits <= 11'b10_01110_10_0_0;
+        muxBits <= 9'b00_1000_100;
     end
     8'b1000_0_xxx : begin           //ADA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b1000_1_xxx : begin           //ADI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0110_000;
     end
     8'b1001_0_xxx : begin           //SBA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b1001_1_xxx : begin           //SBI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0110_000;
     end
     8'b1010_0_xxx : begin           //ACA_rn
-        //controlBits = 'b00101000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 'b00101000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b1010_1_xxx : begin           //ACI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0110_000;
     end
     8'b1011_0_xxx : begin           //SCA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b1011_1_xxx : begin           //SCI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0110_000;
     end
     8'b1100_0_xxx : begin           //ANA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1;
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1;
+        muxBits <= 9'b00_0000_001;
     end
     8'b1100_1_xxx : begin           //ANI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1; 
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1; 
+        muxBits <= 9'b00_0110_000;
     end
     8'b1101_0_xxx : begin           //ORA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1; 
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1; 
+        muxBits <= 9'b00_0000_001;
     end
     8'b1101_1_xxx : begin           //ORI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;  
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;  
+        muxBits <= 9'b00_0110_000;
     end
     8'b1110_0_xxx : begin           //XRA_rn
-        //controlBits = 8'b00101000;
-        controlBits = 11'b00_01011_00_0_1; 
-        muxBits = 10'b00_00000_001;
+        //controlBits <= 8'b00101000;
+        controlBits <= 11'b00_01011_00_0_1; 
+        muxBits <= 9'b00_0000_001;
     end
     8'b1110_1_xxx : begin           //XRI_rn_od
-        //controlBits = 8'b00011000;
-        controlBits = 11'b00_01011_00_0_1;  
-        muxBits = 10'b00_01100_000;
+        //controlBits <= 8'b00011000;
+        controlBits <= 11'b00_01011_00_0_1;  
+        muxBits <= 9'b00_0110_000;
     end
     //8'b1111_0_xxx :               //INA_pn
     //8'b1111_1_xxx :               //OUT_pn
