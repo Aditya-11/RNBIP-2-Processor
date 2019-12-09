@@ -30,7 +30,6 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
     wire flagCheck;
     wire [7:0] OR2;
     // ------------------------------ //
-
     //CC3
     wire RD,  WR;            //Data Memory
     wire I_PC , L_PC;              //PC
@@ -43,30 +42,19 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
     wire [1:0] rw; // SP 00-> none , 01 -> push ,10 -> pop , 11 -> r0
     wire [2:0] mux_sel; // Reg control
     wire clr , we;   // Reg  control
-
     // --------------------------------- //
-
 // ALU 
 	wire [7:0]   Out;           // Output 8 bit
 	wire [3:0]   flagArray;     // not holding only driving EDI
 	wire Cin;          // Carry input bit
-
-
 // register Array 
-    //wire [7:0] A;
-    //wire [7:0] B;
     wire [2:0] seg;
     wire [7:0] dataout_A;
     wire [7:0] dataout_B;
-
 // memeory data
     wire  [7:0]   dataOut ;
-
 // stack ptr
-  //  wire [1:0] rw ;
     wire [7:0] address;
-
-
 // PC
     wire	[7:0]   PC_out;
 
@@ -78,19 +66,63 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
 // end of wires for i/os and control signal
 
     assign I_PC = 1'b1 ;
-    assign led = Out ;
-    //assign A = dataout_A ;
-    //assign B = dataout_B ;
+    //assign led = Out ;
+    
+    // reg [7:0] A_in;
+    // reg [7:0] B_in;
+  /*  
+    always @(posedge clk)
+    begin
+     A_in <= dataout_A;
+     B_in <= dataout_B;
+    end
 
-    reg [7:0] A;
-    reg [7:0] B;
 
+    reg [7:0] A_1;
+    reg [7:0] B_1;
 
     always @(posedge clk)
     begin
-     A <= dataout_A ;
-     B <= dataout_B ;
+     A_1 <= A_in;
+     B_1 <= B_in;
     end
+
+    wire [7:0] A;
+    wire [7:0] B;
+
+    assign A = A_1 ;
+    assign B = B_1 ;
+*/
+
+    reg [7:0] A_in;
+    reg [7:0] B_in;
+    wire [7:0] A;
+    wire [7:0] B;
+
+    //wire [7:0] A;
+    //wire [7:0] B;
+    //reg [3:0] alubits;
+
+    reg  [7:0] Out2;
+    wire [7:0] Out1;
+
+    always @(posedge clk)
+    begin
+     //A <= dataout_A ;
+     //B <= dataout_B ;
+     //A <= A_in;
+     //B <= B_in;
+     //A <= A_in;
+     //B <= B_in;
+     //Out2 <= Out;
+     //alubits <= opcode[7:4];
+    end
+
+    assign Out1 = Out;
+
+    assign A = dataout_A;
+    assign B = dataout_B;
+
 // modules 
 
 // PC
@@ -112,10 +144,8 @@ ProgramCounter modPC
     (
     .clk        (clk),
     .segment (segment),
-    .FL          (FL),
     .PC_in        (PC_out),
     .opcode_in_1 (opcode_in_1),
-    .flagCheck_1 (flagCheck_1),
     .OR1        (OR1),
     .NPC_in_1   (NPC_in_1) 
     );
@@ -124,7 +154,7 @@ ProgramCounter modPC
     (
     .clk   (clk),
     .opcode_in_1 (opcode_in_1),
-    .flagCheck_1 (flagCheck_1),
+    .flagCheck_1 (FL), 
     .OR1 (OR1),
     .NPC_in_1 (NPC_in_1),
     .read_address (read_address),
@@ -169,7 +199,7 @@ dualpreg_tm_test modRA
   .OR2 (OR2),
   .A_in (A),
   .B_in (B),
-  .ALU_IN (Out),
+  .ALU_IN (Out1),
   .SP (address),
   .mem (dataOut),
   .mux_sel (mux_sel),
@@ -189,19 +219,6 @@ dualpreg_tm_test modRA
 
 // memory 
 
-DataMemory modDM
-(
-    .clk (clk),
-    .SP_in (address),
-    .R0_in (A),
-    .NPC_in (NPC_in),
-    .RN_in (B),
-    .dataOut (dataOut),
-    .WR (WR),
-    .S20 (S20),
-    .S50 (S50)
-);
-
 // ALU 
 
 ALUbasic modALU
@@ -212,7 +229,8 @@ ALUbasic modALU
 	.A_IN_0 (A),
 	.B_IN_0 (B),     // 8-bit data input
     .OR2 (OR2),   
-	.S_AF (opcode[7:4]),    
+	.S_AF (opcode[7:4]),  
+    //.S_AF (alubits), 
     .S30 (S30),
     .S40 (S40)
  );

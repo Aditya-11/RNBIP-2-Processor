@@ -16,7 +16,7 @@ module dualpreg_tm_test
   input [2:0] write_seg,
   output reg [7:0] dataout_A,
   output reg [7:0] dataout_B,
-    output	[7:0]	R0,
+  output	[7:0]	R0,
 	output	[7:0]	R1,
 	output	[7:0]	R2,
 	output	[7:0]	R3,
@@ -82,7 +82,7 @@ else if (we) begin
     regmemory[write_seg] = mem;
     end
     
- end
+   end
 end
 
   //READ  

@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
-module ALUbasic(
+module ALUbasic
+(
 	output      [7:0]   Out,           // Output 8 bit
 	output      [3:0]   flagArray,     // not holding only driving EDI
 	input 			    Cin,          // Carry input bit
@@ -10,10 +11,10 @@ module ALUbasic(
 	input 		[3:0] 	S_AF,      // Most significant 4 bits of the op code
     input               S30,
     input               S40
-	);
+ );
 
-    wire [7:0] B_IN ;
-    wire [7:0] A_IN ;
+    wire [7:0] B_IN;
+    wire [7:0] A_IN;
 
 	//legacy def
 	//Unary Operations
@@ -51,7 +52,7 @@ module ALUbasic(
                         (S_AF== NOT )?         ~A_IN         : (
                         (S_AF== B )?           B_IN          : (
                         (S_AF== INC_A )?       A_IN+1        : (
-                        (S_AF== DCR_A )?       A_IN-1        : (
+                        (S_AF== DCR_A )?       A_IN - 1       : (
                         (S_AF== SLC_A )?       {A_IN,Cin}    : (        //Rotate
                         (S_AF== SRC_A )?       {A_IN[0],Cin,A_IN[7:1]}    : (      //Rotate
                         (S_AF== ADD_AB )?      A_IN+B_IN     : (
