@@ -217,4 +217,18 @@ ProgramMemory modPM
 );
 
 
+DataMemory modDM
+(
+    .clk (clk),
+    .WR (WR),
+    .S20 (S20),
+    .S50 (S50),
+    .SP_in (address),
+    .R0_in (A),
+    .NPC_in (NPC_in),
+    .RN_in (B),
+    .dataOut (dataOut)
+    // input           RD,
+);
+
 endmodule

@@ -267,11 +267,12 @@ begin
          controlBits <= 11'b00_01010_00_0_0;
          muxBits <= 6'b00_0000;
     end
+    /*
     8'b0110_0_000 : begin           //RLA
         //controlBits <= 8'b00011000;
          controlBits <= 11'b00_01011_00_0_1;
          muxBits <= 6'b00_0000;
-    end
+    end*/
     8'b0110_0_xxx : begin           //STA_rn*
         //controlBits <= 8'b01010000;
         controlBits <= 11'b01_00000_00_0_0;

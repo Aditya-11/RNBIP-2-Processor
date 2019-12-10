@@ -27,9 +27,10 @@ module DataMemory
     if (WR)
         dataMem[address] <= dataIn;
     end
-
+    
+    /*
     initial begin
             $readmemh("test/DMinit.txt",dataMem);
     end
-
+    */
 endmodule 
