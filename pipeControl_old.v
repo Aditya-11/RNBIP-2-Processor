@@ -13,34 +13,27 @@ module CCG1
     output  [7:0]     NPC_in_1
 );
 
+
 /*
 assign opcode_in_1 = segment[15:8];
 assign OR1 = segment[7:0]; 
 assign NPC_in_1 = PC_in;
 */
-//reg [7:0] NPC;
-//reg [7:0] OR;
-//reg [7:0] opcode;
+reg [7:0] NPC;
+reg [7:0] OR;
+reg [7:0] opcode;
 
-/*
 always @  (posedge clk)
 begin
 NPC <= PC_in;
 OR <= segment[7:0];
 opcode <= segment[15:8];
 end
-*/
 
-assign opcode_in_1 = segment[15:8];
-assign OR1 = segment[7:0]; 
-assign NPC_in_1 = PC_in;
-
-
-/*
 assign opcode_in_1 = opcode;
 assign OR1 = OR; 
 assign NPC_in_1 = NPC;
-*/
+
 endmodule 
 
 // -------------------------------------- //
@@ -62,30 +55,6 @@ module CCG2
     
 );
 
-/*
-reg [7:0] OC_reg;
-reg FL_reg;
-reg [7:0] OR_reg;
-reg [7:0] NPC;
-reg [2:0] write;
-
-always @ (posedge clk)
-begin
-     FL_reg <=  flagCheck_1;
-     OC_reg <=  opcode_in_1;
-     OR_reg <=   OR1;
-     NPC    <= NPC_in_1;
-     write <= opcode_in_1[2:0];
-end
-*/
-
-/*
-assign opcode = OC_reg ;
-assign flagCheck = FL_reg;
-assign OR2 = OR_reg;
-assign write_address = opcode_in_1[2:0];
-assign NPC_in = NPC;
-*/
 
 reg [7:0] write ;
 reg [7:0] OR ;
@@ -140,7 +109,6 @@ reg [5:0] muxBits;
 
 
 assign {RD, WR, clr , we , mux_sel , rw , L_PC,S_AL} = controlBits;
-
 assign {S11, S10, S20, S30, S40, S50} = muxBits;
 
 

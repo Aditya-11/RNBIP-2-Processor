@@ -14,7 +14,7 @@ initial begin
     clk = 1'b0;
 end
 
-always #10 clk = ~clk;
-always #400 $stop;
+always #200 clk = ~clk;
+always #4000000 $stop;
 
 endmodule // top_test

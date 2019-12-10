@@ -5,12 +5,8 @@
 module Topmodule
    (
    input   clk//,
-   //output  [15:0] led
    );
-// wires for control signel and i/os 
-//pipe Control 
-// i/os 
-// Control Unit
+
 wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
 
     //CC1
@@ -66,57 +62,14 @@ wire [7:0] R0, R1, R2, R3, R4, R5, R6, R7;
 // end of wires for i/os and control signal
 
     assign I_PC = 1'b1 ;
-    //assign led = Out ;
-    
-    // reg [7:0] A_in;
-    // reg [7:0] B_in;
-  /*  
-    always @(posedge clk)
-    begin
-     A_in <= dataout_A;
-     B_in <= dataout_B;
-    end
-
-
-    reg [7:0] A_1;
-    reg [7:0] B_1;
-
-    always @(posedge clk)
-    begin
-     A_1 <= A_in;
-     B_1 <= B_in;
-    end
-
-    wire [7:0] A;
-    wire [7:0] B;
-
-    assign A = A_1 ;
-    assign B = B_1 ;
-*/
 
     reg [7:0] A_in;
     reg [7:0] B_in;
     wire [7:0] A;
     wire [7:0] B;
 
-    //wire [7:0] A;
-    //wire [7:0] B;
-    //reg [3:0] alubits;
-
     reg  [7:0] Out2;
     wire [7:0] Out1;
-
-    always @(posedge clk)
-    begin
-     //A <= dataout_A ;
-     //B <= dataout_B ;
-     //A <= A_in;
-     //B <= B_in;
-     //A <= A_in;
-     //B <= B_in;
-     //Out2 <= Out;
-     //alubits <= opcode[7:4];
-    end
 
     assign Out1 = Out;
 
