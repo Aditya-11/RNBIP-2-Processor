@@ -4,3 +4,7 @@
 ![alt text](https://raw.githubusercontent.com/Aditya-11/RNBIP-2-Processor/master/timing/architecture.jpg)
 
 IO module has to be added
+
+
+# test command
+make toptb2
